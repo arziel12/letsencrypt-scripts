@@ -4,6 +4,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 touch $DIR/out/$CERTBOT_VALIDATION
 
+docker pull arziel/php:7.3
+
 docker run \
 	--workdir /var/docker \
 	--volume $DIR:/var/docker \
