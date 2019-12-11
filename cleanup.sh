@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo CLEANUP
 
-env | grep CERTBOT
-
 docker run \
 	--workdir /var/docker \
-	--volume $(pwd):/var/docker \
+	--volume $DIR:/var/docker \
 	arziel/php:7.3 \
 	php cleanup.php $CERTBOT_DOMAIN $CERTBOT_VALIDATION
 
