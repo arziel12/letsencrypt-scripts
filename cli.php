@@ -6,8 +6,6 @@ use Nette\Utils\Json;
 
 \Tracy\Debugger::enable(false);
 
-var_dump($argv);
-
 if ($argc !== 3) {
 	die('invalid arguments');
 }

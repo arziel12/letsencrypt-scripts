@@ -22,6 +22,8 @@ final class SubregClient
 	
 	public function addEntry(array $config, string $domain, string $token): void
 	{
+		echo "[$domain] Add Entry $token" . \PHP_EOL;
+		
 		$ssid = $this->authorize($config['login'], $config['password']);
 		
 		$this->addDnsTxtRecord($ssid, $domain, $token);
@@ -61,6 +63,7 @@ final class SubregClient
 		foreach ($records as $record) {
 			
 			if (isset($record['txt']) && $record['txt'] === $token) {
+				echo "[$domain] TXT found at DNS" . \PHP_EOL;
 				return true;
 			}
 		}
