@@ -2,16 +2,18 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Nette\Utils\Json;
-
 \Tracy\Debugger::enable(false);
 
-if ($argc !== 3) {
+if ($argc !== 4) {
 	die('invalid arguments');
 }
 
-$config = Json::decode(file_get_contents(__DIR__ . '/config.json'), Json::FORCE_ARRAY);
+$action = $argv[1];
 
-$client = new \Arziel\Letsencrypt\SubregClient();
+$client = new \Arziel\Letsencrypt\CertificateAuthenticator();
 
-$client->addEntry($config, $argv[1], $argv[2]);
+if ($action === 'authenticate') {
+	$client->authenticate($argv[2], $argv[3]);
+} elseif ($action === 'cleanup') {
+	$client->cleanup($argv[2], $argv[3]);
+}

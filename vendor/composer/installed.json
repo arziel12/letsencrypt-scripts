@@ -1,5 +1,96 @@
 [
     {
+        "name": "arziel/conditions",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Arziel/conditions.git",
+            "reference": "67607a8bcb8894518a6461ae5ca74bc98e456ca3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Arziel/conditions/zipball/67607a8bcb8894518a6461ae5ca74bc98e456ca3",
+            "reference": "67607a8bcb8894518a6461ae5ca74bc98e456ca3",
+            "shasum": ""
+        },
+        "require-dev": {
+            "nette/tester": "^2.3"
+        },
+        "time": "2019-12-12T16:23:26+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ]
+    },
+    {
+        "name": "consistence/consistence",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/consistence/consistence.git",
+            "reference": "49786347a96696337591f14f26dabf46d1e69fd8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/consistence/consistence/zipball/49786347a96696337591f14f26dabf46d1e69fd8",
+            "reference": "49786347a96696337591f14f26dabf46d1e69fd8",
+            "shasum": ""
+        },
+        "require": {
+            "php": "~7.2"
+        },
+        "require-dev": {
+            "consistence/coding-standard": "3.7",
+            "jakub-onderka/php-console-highlighter": "0.4",
+            "jakub-onderka/php-parallel-lint": "1.0",
+            "phing/phing": "2.16.1",
+            "phpunit/phpunit": "7.5.1"
+        },
+        "time": "2018-12-28T16:03:19+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Consistence\\": [
+                    "src"
+                ]
+            },
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Vašek Purchart",
+                "email": "me@vasekpurchart.cz",
+                "homepage": "http://vasekpurchart.cz"
+            }
+        ],
+        "description": "Consistence - consistent approach and additions to PHP's functionality",
+        "keywords": [
+            "array",
+            "check",
+            "enum",
+            "format",
+            "strict",
+            "time",
+            "type"
+        ]
+    },
+    {
         "name": "guzzlehttp/guzzle",
         "version": "6.5.0",
         "version_normalized": "6.5.0.0",
@@ -192,6 +283,69 @@
             "stream",
             "uri",
             "url"
+        ]
+    },
+    {
+        "name": "nette/neon",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nette/neon.git",
+            "reference": "cbff32059cbdd8720deccf9e9eace6ee516f02eb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nette/neon/zipball/cbff32059cbdd8720deccf9e9eace6ee516f02eb",
+            "reference": "cbff32059cbdd8720deccf9e9eace6ee516f02eb",
+            "shasum": ""
+        },
+        "require": {
+            "ext-iconv": "*",
+            "ext-json": "*",
+            "php": ">=7.0"
+        },
+        "require-dev": {
+            "nette/tester": "^2.0",
+            "tracy/tracy": "^2.3"
+        },
+        "time": "2019-02-05T21:30:40+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "https://davidgrudl.com"
+            },
+            {
+                "name": "Nette Community",
+                "homepage": "https://nette.org/contributors"
+            }
+        ],
+        "description": "? Nette NEON: encodes and decodes NEON file format.",
+        "homepage": "http://ne-on.org",
+        "keywords": [
+            "export",
+            "import",
+            "neon",
+            "nette",
+            "yaml"
         ]
     },
     {

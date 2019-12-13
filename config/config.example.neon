@@ -1,0 +1,23 @@
+
+# -----------------------
+#
+# -----------------------
+
+providers:
+	wedos:
+		class: Arziel\Letsencrypt\Clients\WedosClient
+		wait: 1200 # 20 minutes
+		auth:
+			login:
+			wapiToken:
+
+	subreg:
+		class: Arziel\Letsencrypt\SubregDNSClient
+		wait: 1200 # 20 minutes
+		auth:
+			login:
+			password:
+
+domains:
+	examle.com:
+		provider: subreg

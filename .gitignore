@@ -9,3 +9,4 @@ out
 gen
 
 /config.json
+/config/config.neon

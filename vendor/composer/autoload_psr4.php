@@ -10,5 +10,6 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
+    'Consistence\\' => array($vendorDir . '/consistence/consistence/src'),
     'Arziel\\Letsencrypt\\' => array($baseDir . '/src'),
 );

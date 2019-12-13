@@ -2,7 +2,10 @@
 	"require": {
 		"guzzlehttp/guzzle": "^6.5",
 		"tracy/tracy": "^2.7",
-		"nette/utils": "^3.0"
+		"nette/utils": "^3.0",
+		"consistence/consistence": "^2.0",
+		"nette/neon": "^3.0",
+		"arziel/conditions": "@dev"
 	},
 	"autoload": {
 		"psr-4": {

@@ -1,15 +1,27 @@
 <?php declare(strict_types = 1);
 
-namespace Arziel\Letsencrypt;
+namespace Arziel\Letsencrypt\Clients;
 
-final class SubregClient
+use Arziel\Conditions\Any;
+use Arziel\Letsencrypt\DTO\DnsRecord;
+
+final class SubregDNSClient implements IDNSProvider
 {
 	private const URL = 'https://soap.subreg.cz/cmd.php';
 	private const RECORD_TYPE = 'TXT';
 	private const RECORD_NAME = '_acme-challenge';
 	private $client;
+	/**
+	 * @var string
+	 */
+	private $authToken;
 	
-	public function __construct()
+	/**
+	 * @var int
+	 */
+	private $wait;
+	
+	public function __construct(array $auth, int $wait)
 	{
 		$this->client = new \SoapClient(
 			null,
@@ -18,38 +30,49 @@ final class SubregClient
 				'uri'      => 'http://PRODUCTION/soap',
 			]
 		);
+		
+		if (Any::isNull($auth['password'], $auth['login'])) {
+			throw new \LogicException('Please define auth in config');
+		}
+		
+		
+		$this->authToken = $this->authorize($auth['login'], $auth['password']);
+		
+		$this->wait = $wait;
 	}
 	
-	public function addEntry(array $config, string $domain, string $token): void
+	public function getWait(): int
 	{
-		echo "[$domain] Add Entry $token" . \PHP_EOL;
-		
-		$ssid = $this->authorize($config['login'], $config['password']);
-		
-		$this->addDnsTxtRecord($ssid, $domain, $token);
-		
-		$this->checkRecord($domain, $token);
+		return $this->wait;
 	}
 	
-	public function deleteEntry(array $config, string $domain, string $token): void
+	public function add(DnsRecord $row): void
 	{
-		$ssid = $this->authorize($config['login'], $config['password']);
+		echo "[Subreg][{$row->getDomain()}] add TXT record {$row->getToken()}" . \PHP_EOL;
 		
-		$records = $this->getRecords($ssid, $domain);
+		$this->addDnsTxtRecord($this->authToken, $row->getDomain(), $row->getToken());
+	}
+	
+	public function delete(DnsRecord $row): void
+	{
+		$token = $row->getToken();
+		$domain = $row->getDomain();
+		
+		$records = $this->getRecords($this->authToken, $domain);
 		
 		foreach ($records as ['id' => $id, 'name' => $name, 'type' => $type, 'content' => $content]) {
 			if ($name === self::RECORD_NAME) {
 				if ($type === self::RECORD_TYPE) {
 					if ($content === $token) {
-						echo "Delete $token" . \PHP_EOL;
-						
-						
-						$this->deleteTxt($ssid, $domain, $id);
+						echo "[Subreg][{$domain}] delete $token" . \PHP_EOL;
+				
+						$this->deleteTxt($this->authToken, $domain, $id);
 					}
 				}
 			}
 		}
 	}
+	
 	
 	public function checkRecord(
 		$domain,
@@ -64,6 +87,7 @@ final class SubregClient
 			
 			if (isset($record['txt']) && $record['txt'] === $token) {
 				echo "[$domain] TXT found at DNS" . \PHP_EOL;
+				
 				return true;
 			}
 		}
