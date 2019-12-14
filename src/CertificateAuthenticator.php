@@ -19,7 +19,6 @@ final class CertificateAuthenticator
 	private $config;
 	private $providers = [];
 	private $domains = [];
-	
 	/**
 	 * @var OutputInterface
 	 */
@@ -58,9 +57,6 @@ final class CertificateAuthenticator
 					return true;
 				}
 			}
-			
-			echo "[$domain] TXT value ($token) not found at DNS" . \PHP_EOL;
-			echo "[$domain] ";
 			
 			$this->output->writeln("[$domain] TXT value ($token) not found at DNS");
 			$this->output->write("[$domain] ");
@@ -105,11 +101,12 @@ final class CertificateAuthenticator
 	
 	private function sleep(int $seconds): void
 	{
-		echo \sprintf(
-			'Sleep for %s sec(s) till %s%s',
-			$seconds,
-			date('d.m.y H:i:s', time() + $seconds),
-			PHP_EOL
+		$this->output->writeln(
+			\sprintf(
+				'Sleep for %s sec(s) till %s',
+				$seconds,
+				date('d.m.y H:i:s', time() + $seconds)
+			)
 		);
 		
 		\sleep($seconds);
