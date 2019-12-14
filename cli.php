@@ -4,16 +4,11 @@ require __DIR__ . '/vendor/autoload.php';
 
 \Tracy\Debugger::enable(false);
 
-if ($argc !== 4) {
-	die('invalid arguments');
-}
+$console = new \Symfony\Component\Console\Application('Letsencrypt authenticator');
 
-$action = $argv[1];
+$console->add(new \Arziel\Letsencrypt\Command());
 
-$client = new \Arziel\Letsencrypt\CertificateAuthenticator();
+$console->setDefaultCommand('run');
 
-if ($action === 'authenticate') {
-	$client->authenticate($argv[2], $argv[3]);
-} elseif ($action === 'cleanup') {
-	$client->cleanup($argv[2], $argv[3]);
-}
+$console->run(new \Symfony\Component\Console\Input\ArgvInput(), new \Symfony\Component\Console\Output\ConsoleOutput());
+

@@ -10,4 +10,4 @@ docker run \
 	--workdir /var/docker \
 	--volume $DIR:/var/docker \
 	arziel/php:7.3 \
-	php cli.php cleanup $CERTBOT_DOMAIN $CERTBOT_VALIDATION
+	php cli.php run cleanup $CERTBOT_DOMAIN $CERTBOT_VALIDATION

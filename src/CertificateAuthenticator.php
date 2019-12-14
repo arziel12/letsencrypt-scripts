@@ -7,19 +7,27 @@ use Arziel\Letsencrypt\DTO\DnsRecord;
 use Arziel\Letsencrypt\Enum\DnsRecordType;
 use Nette\Neon\Neon;
 use Nette\Utils\FileSystem;
+use Symfony\Component\Console\Output\OutputInterface;
 
 final class CertificateAuthenticator
 {
 	private const RECORD_NAME = '_acme-challenge';
 	private const CONFIG_PATH = __DIR__ . '/../config/config.neon';
+	private const SECONDS = 15;
 	private $client;
 	/** @var array */
 	private $config;
 	private $providers = [];
 	private $domains = [];
 	
-	public function __construct()
+	/**
+	 * @var OutputInterface
+	 */
+	private $output;
+	
+	public function __construct(OutputInterface $output)
 	{
+		$this->output = $output;
 		$this->config = Neon::decode(FileSystem::read(self::CONFIG_PATH));
 		
 		foreach ($this->config['providers'] as $key => $provider) {
@@ -31,19 +39,21 @@ final class CertificateAuthenticator
 		}
 	}
 	
-	public function checkRecord(DnsRecord $record): bool
+	public function checkRecord(IDNSProvider $provider, DnsRecord $record): bool
 	{
 		$domain = $record->getDomain();
 		$token = $record->getToken();
 		
-		echo "Check TXT Records" . \PHP_EOL;
-	
-		while (true) {
+		$this->output->writeln("Check TXT Records");
+		
+		$wait = $provider->getWait();
+		
+		while ($wait > 0) {
 			$records = \dns_get_record(self::RECORD_NAME . '.' . $domain, DNS_TXT);
 			
 			foreach ($records as $record) {
 				if (isset($record['txt']) && $record['txt'] === $token) {
-					echo "[$domain] TXT value ($token) found at DNS" . \PHP_EOL;
+					$this->output->writeln("[$domain] TXT value ($token) found at DNS");
 					
 					return true;
 				}
@@ -51,8 +61,17 @@ final class CertificateAuthenticator
 			
 			echo "[$domain] TXT value ($token) not found at DNS" . \PHP_EOL;
 			echo "[$domain] ";
-			$this->sleep(15);
+			
+			$this->output->writeln("[$domain] TXT value ($token) not found at DNS");
+			$this->output->write("[$domain] ");
+			
+			$wait = - self::SECONDS;
+			$this->sleep(self::SECONDS);
 		}
+		
+		$this->output->write("[$domain] Timeouted");
+		
+		return false;
 	}
 	
 	public function resolveProvider(DnsRecord $record): IDNSProvider
@@ -72,7 +91,7 @@ final class CertificateAuthenticator
 		
 		$dnsClient->add($record);
 		
-		$this->checkRecord($record);
+		$this->checkRecord($dnsClient, $record);
 	}
 	
 	public function cleanup(string $domain, string $token): void

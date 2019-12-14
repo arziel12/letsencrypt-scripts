@@ -46,6 +46,7 @@ return array(
     'Consistence\\Type\\Type' => $vendorDir . '/consistence/consistence/src/Type/Type.php',
     'Consistence\\UndefinedMethodException' => $vendorDir . '/consistence/consistence/src/exceptions/UndefinedMethodException.php',
     'Consistence\\UndefinedPropertyException' => $vendorDir . '/consistence/consistence/src/exceptions/UndefinedPropertyException.php',
+    'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     'Nette\\ArgumentOutOfRangeException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\DeprecatedException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\DirectoryNotFoundException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',

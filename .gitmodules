@@ -1,0 +1,3 @@
+[submodule "vendor/arziel/conditions"]
+	path = vendor/arziel/conditions
+	url = git@github.com:arziel/conditions.git
