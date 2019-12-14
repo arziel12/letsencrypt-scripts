@@ -65,7 +65,7 @@ final class CertificateAuthenticator
 			$this->output->writeln("[$domain] TXT value ($token) not found at DNS");
 			$this->output->write("[$domain] ");
 			
-			$wait = - self::SECONDS;
+			$wait = $wait - self::SECONDS;
 			$this->sleep(self::SECONDS);
 		}
 		
