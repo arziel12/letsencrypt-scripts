@@ -10,5 +10,15 @@ $console->add(new \Arziel\Letsencrypt\Command());
 
 $console->setDefaultCommand('run');
 
-$console->run(new \Symfony\Component\Console\Input\ArgvInput(), new \Symfony\Component\Console\Output\ConsoleOutput());
+$output = new \Symfony\Component\Console\Output\BufferedOutput();
 
+$input = new \Symfony\Component\Console\Input\ArgvInput();
+$console->run(
+	$input,
+	$output
+);
+
+\Nette\Utils\FileSystem::write(
+	sprintf("%s/../temp/%s%s.log", __DIR__, implode('-', $input->getArguments()), time()),
+	$output->fetch()
+);
