@@ -19,6 +19,6 @@ $console->run(
 );
 
 \Nette\Utils\FileSystem::write(
-	sprintf("%s/../temp/%s%s.log", __DIR__, implode('-', $input->getArguments()), time()),
+	sprintf("/var/log/letsencript-scripts/%s-%s.log", __DIR__, implode('-', $input->getArguments()), date('ymd-His')),
 	$output->fetch()
 );
