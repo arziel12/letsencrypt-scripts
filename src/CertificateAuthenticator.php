@@ -81,7 +81,7 @@ final class CertificateAuthenticator
 	
 	public function authenticate(string $domain, string $token): void
 	{
-		$record = new DnsRecord(null, $domain, $token, DnsRecordType::get(DnsRecordType::TXT), 10);
+		$record = new DnsRecord(null, $domain, $token, DnsRecordType::TXT(), 10);
 		
 		$dnsClient = $this->resolveProvider($record);
 		
@@ -92,7 +92,7 @@ final class CertificateAuthenticator
 	
 	public function cleanup(string $domain, string $token): void
 	{
-		$record = new DnsRecord(null, $domain, $token, DnsRecordType::get(DnsRecordType::TXT), 10);
+		$record = new DnsRecord(null, $domain, $token, DnsRecordType::TXT(), 10);
 		
 		$dnsClient = $this->resolveProvider($record);
 		

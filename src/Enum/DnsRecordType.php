@@ -2,9 +2,14 @@
 
 namespace Arziel\Letsencrypt\Enum;
 
-use Consistence\Enum\Enum;
-
-class DnsRecordType extends Enum
+/**
+ * @method static self A()
+ * @method static self AAAA()
+ * @method static self CNAME()
+ * @method static self TXT()
+ * @method static self MX()
+ */
+class DnsRecordType extends AbstractEnum
 {
 	public const A = 'A';
 	public const AAAA = 'AAAA';
