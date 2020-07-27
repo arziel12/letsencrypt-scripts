@@ -13,10 +13,13 @@ $console->setDefaultCommand('run');
 $output = new \Symfony\Component\Console\Output\BufferedOutput();
 
 $input = new \Symfony\Component\Console\Input\ArgvInput();
+
 $console->run(
 	$input,
 	$output
 );
+
+echo $output->fetch();
 
 \Nette\Utils\FileSystem::write(
 	sprintf("/var/log/letsencript-scripts/%s-%s.log", __DIR__, implode('-', $input->getArguments()), date('ymd-His')),
