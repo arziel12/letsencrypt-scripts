@@ -12,12 +12,15 @@ $console->add(new \Arziel\Letsencrypt\Command());
 
 $console->setDefaultCommand('run');
 
-$output = new \Symfony\Component\Console\Output\BufferedOutput();
+$argv[] = $_SERVER['CERTBOT_DOMAIN'];
+$argv[] = $_SERVER['CERTBOT_VALIDATION'];
 
+$argc++;
+$argc++;
+
+$output = new \Symfony\Component\Console\Output\BufferedOutput();
 $input = new \Symfony\Component\Console\Input\ArgvInput();
 
-$input->setArgument('domain', $_ENV['CERTBOT_DOMAIN']);
-$input->setArgument('token', $_ENV['CERTBOT_VALIDATION']);
 
 $console->run(
 	$input,
