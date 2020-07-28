@@ -12,11 +12,6 @@ $console->add(new \Arziel\Letsencrypt\Command());
 
 $console->setDefaultCommand('run');
 
-$argv[] = $_SERVER['CERTBOT_DOMAIN'];
-$argv[] = $_SERVER['CERTBOT_VALIDATION'];
-
-$argc++;
-$argc++;
 
 $output = new \Symfony\Component\Console\Output\BufferedOutput();
 $input = new \Symfony\Component\Console\Input\ArgvInput();
@@ -30,6 +25,6 @@ $console->run(
 echo $output->fetch();
 
 \Nette\Utils\FileSystem::write(
-	sprintf("/var/log/letsencript-scripts/%s-%s.log", __DIR__, implode('-', $input->getArguments()), date('ymd-His')),
+	sprintf('/var/log/letsencript-scripts/%s-%s.log', __DIR__, implode('-', $input->getArguments()), date('ymd-His')),
 	$output->fetch()
 );
