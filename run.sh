@@ -17,4 +17,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #	--volume $DIR:/var/docker \
 #	arziel/php:7.3 \
 
-php cli.php run authenticate $CERTBOT_DOMAIN $CERTBOT_VALIDATION > run.log
+php $DIR/cli.php run authenticate $CERTBOT_DOMAIN $CERTBOT_VALIDATION > run.log
