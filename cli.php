@@ -2,7 +2,9 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-\Tracy\Debugger::enable(false);
+\Nette\Utils\FileSystem::createDir(__DIR__ . '/log', 775);
+
+\Tracy\Debugger::enable(true, __DIR__ . '/log');
 
 $console = new \Symfony\Component\Console\Application('Letsencrypt authenticator');
 
