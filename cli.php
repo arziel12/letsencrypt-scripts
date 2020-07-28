@@ -14,6 +14,9 @@ $output = new \Symfony\Component\Console\Output\BufferedOutput();
 
 $input = new \Symfony\Component\Console\Input\ArgvInput();
 
+$input->setArgument('domain', $_ENV['CERTBOT_DOMAIN']);
+$input->setArgument('token', $_ENV['CERTBOT_VALIDATION']);
+
 $console->run(
 	$input,
 	$output
