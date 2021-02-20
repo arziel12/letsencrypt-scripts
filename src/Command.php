@@ -17,13 +17,13 @@ class Command extends \Symfony\Component\Console\Command\Command
 		$this->addArgument('token', InputArgument::REQUIRED);
 	}
 	
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$action = $input->getArgument('action');
 		$domain = $input->getArgument('domain');
 		$token = $input->getArgument('token');
 		
-		$client = new \Arziel\Letsencrypt\CertificateAuthenticator($output);
+		$client = new CertificateAuthenticator($output);
 		
 		try {
 			if ($action === 'authenticate') {
@@ -31,8 +31,6 @@ class Command extends \Symfony\Component\Console\Command\Command
 			} elseif ($action === 'cleanup') {
 				$client->cleanup($domain, $token);
 			}
-			
-			return 0;
 		} catch (\Throwable $e) {
 			$exception = \get_class($e);
 			
@@ -41,5 +39,7 @@ class Command extends \Symfony\Component\Console\Command\Command
 			
 			return 1;
 		}
+		
+		return 0;
 	}
 }

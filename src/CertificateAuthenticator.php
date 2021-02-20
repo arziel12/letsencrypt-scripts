@@ -38,12 +38,12 @@ final class CertificateAuthenticator
 		}
 	}
 	
-	public function checkRecord(IDNSProvider $provider, DnsRecord $record): bool
+	public function checkRecord(IDNSProvider $provider, DnsRecord $dnsRecord): bool
 	{
-		$domain = $record->getDomain();
-		$token = $record->getToken();
+		$domain = $dnsRecord->getDomain();
+		$token = $dnsRecord->getToken();
 		
-		$this->output->writeln("Check TXT Records");
+		$this->output->writeln('Check TXT Records');
 		
 		$wait = $provider->getWait();
 		
@@ -61,7 +61,7 @@ final class CertificateAuthenticator
 			$this->output->writeln("[$domain] TXT value ($token) not found at DNS");
 			$this->output->write("[$domain] ");
 			
-			$wait = $wait - self::SECONDS;
+			$wait -= self::SECONDS;
 			$this->sleep(self::SECONDS);
 		}
 		

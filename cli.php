@@ -4,27 +4,17 @@ require __DIR__ . '/vendor/autoload.php';
 
 \Nette\Utils\FileSystem::createDir(__DIR__ . '/log', 775);
 
+\Sentry\init(['dsn' => 'https://f8e4a5c829a14dd985823f1c52908f50@o272072.ingest.sentry.io/5369703']);
+
 \Tracy\Debugger::enable(true, __DIR__ . '/log');
 
 $console = new \Symfony\Component\Console\Application('Letsencrypt authenticator');
-
 $console->add(new \Arziel\Letsencrypt\Command());
 
-$console->setDefaultCommand('run');
-
-
-$output = new \Symfony\Component\Console\Output\BufferedOutput();
+$output = new \Symfony\Component\Console\Output\ConsoleOutput();
 $input = new \Symfony\Component\Console\Input\ArgvInput();
-
 
 $console->run(
 	$input,
 	$output
-);
-
-echo $output->fetch();
-
-\Nette\Utils\FileSystem::write(
-	sprintf('/var/log/letsencript-scripts/%s-%s.log', __DIR__, implode('-', $input->getArguments()), date('ymd-His')),
-	$output->fetch()
 );

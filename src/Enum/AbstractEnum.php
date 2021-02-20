@@ -2,10 +2,14 @@
 
 namespace Arziel\Letsencrypt\Enum;
 
-class AbstractEnum
+use Consistence\Enum\Enum;
+
+abstract class AbstractEnum extends Enum
 {
 	/**
 	 * @param array<string, string> $args
+	 *
+	 * @throws \InvalidArgumentException
 	 */
 	public static function __callStatic($name, array $args): self
 	{
