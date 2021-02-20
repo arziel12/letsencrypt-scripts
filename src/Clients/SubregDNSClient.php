@@ -127,7 +127,7 @@ final class SubregDNSClient implements IDNSProvider
 		
 		\dump($response);
 		
-		throw new \LogicException();
+		throw new \LogicException($response);
 	}
 	
 	private function getRecords(
