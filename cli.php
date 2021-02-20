@@ -15,11 +15,9 @@ $input = new \Symfony\Component\Console\Input\ArgvInput();
 
 $output = new \Arziel\Letsencrypt\MultipleConsoleOutput(
 	sprintf(
-		'%s/log/result/%s/%s.%s.%s.log',
+		'%s/log/result/%s/%s.log',
 		__DIR__,
 		date('Y-m-d'),
-		$input->getArgument('action') ?? 'unknown',
-		$input->getArgument('domain') ?? 'unknown',
 		microtime(true)
 	)
 );
