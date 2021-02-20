@@ -4,6 +4,7 @@ namespace Arziel\Letsencrypt\Clients;
 
 use Arziel\Conditions\Any;
 use Arziel\Letsencrypt\DTO\DnsRecord;
+use Nette\Utils\Json;
 
 final class SubregDNSClient implements IDNSProvider
 {
@@ -127,7 +128,7 @@ final class SubregDNSClient implements IDNSProvider
 		
 		\dump($response);
 		
-		throw new \LogicException($response);
+		throw new \LogicException(Json::encode($response));
 	}
 	
 	private function getRecords(

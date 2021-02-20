@@ -11,9 +11,18 @@ require __DIR__ . '/vendor/autoload.php';
 $console = new \Symfony\Component\Console\Application('Letsencrypt authenticator');
 $console->add(new \Arziel\Letsencrypt\Command());
 
-$output = new \Arziel\Letsencrypt\MultipleConsoleOutput(__DIR__ . '/log/result/' . microtime(true) . '.log');
 $input = new \Symfony\Component\Console\Input\ArgvInput();
 
+$output = new \Arziel\Letsencrypt\MultipleConsoleOutput(
+	sprintf(
+		'%s/log/result/%s/%s.%s.%s.log',
+		__DIR__,
+		date('Y-m-d'),
+		$input->getArgument('action') ?? 'unknown',
+		$input->getArgument('domain') ?? 'unknown',
+		microtime(true)
+	)
+);
 $console->run(
 	$input,
 	$output
