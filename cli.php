@@ -4,7 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 \Nette\Utils\FileSystem::createDir(__DIR__ . '/log', 775);
 
-\Sentry\init(['dsn' => 'https://f8e4a5c829a14dd985823f1c52908f50@o272072.ingest.sentry.io/5369703']);
+//\Sentry\init(['dsn' => 'https://f8e4a5c829a14dd985823f1c52908f50@o272072.ingest.sentry.io/5369703']);
 
 \Tracy\Debugger::enable(true, __DIR__ . '/log');
 
