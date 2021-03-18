@@ -12,7 +12,7 @@ class WedosDNSClient implements IDNSProvider
 {
 	private const RECORD_NAME = '_acme-challenge';
 	private const API_URL = 'https://api.wedos.com/wapi/json';
-	const INVALID_REQUEST_DNS_ROW_EXISTS = 2316;
+	public const INVALID_REQUEST_DNS_ROW_EXISTS = 2316;
 	/**
 	 * @var int
 	 */
@@ -44,8 +44,6 @@ class WedosDNSClient implements IDNSProvider
 	
 	public function add(DnsRecord $row): void
 	{
-		// TODO: Implement add() method.
-		
 		$this->request(
 			'dns-row-add',
 			[
@@ -56,7 +54,14 @@ class WedosDNSClient implements IDNSProvider
 				'rdata'  => $row->getToken(),
 			]
 		);
-
+		
+		$this->request(
+			'dns-domain-commit',
+			[
+				'name' => $row->getDomain(),
+			]
+		);
+		
 		echo '[Wedos] Row added.' . \PHP_EOL;
 	}
 	
